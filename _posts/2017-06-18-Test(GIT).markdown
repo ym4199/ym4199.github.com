@@ -1,0 +1,186 @@
+# git_day2
+
+git init 파일명
+
+> 파일 만들고 init 지정
+
+
+git commit -a -m '설명'
+
+
+## untracked
+git reset HEAD 파일명  
+
+
+
+## 되돌리기
+git commit --amend  
+비추 : git commit --amend -m '설명'  
+이전 커밋이 지워지고 새로 하나 다시 만들어
+
+add가 선행되어서 tracked된 상태여야 한다.
+
+따라서 git add 파일명  
+이후 git commit --amend  
+통해 두 파일을 동시에 커밋 메시지 
+
+## modified 되돌리기
+commit checkout -- 파일명  
+local 파일 건드려서 위험  
+staged 된 상태로 돌려
+
+## git remote
+git remote
+git remote -v 위치까지 확인
+
+git remote add origin 주소
+
+> bitbucket  
+> git 이랑 비슷 그러나 비공개로 가능  
+> git education 학생 email가능
+
+## git push/pull
+
+git clone 주소  
+= 주소에 해당하는 파일/폴더를 가져와서 로컬에 동일하게 생성
+
+
+echo '넣을내용' > 파일명.확장자
+
+
+git clone 주소 파일위치
+
+master = branch
+
+
+git pull = git fetch + git merge
+
+
+
+
+
+## branch
+사본을 떠서 두개의 파일을 갖는다?
+
+git checkout testing : testing 으로 head 이동
+
+git branch -v : 어떤 branch 가르키고 있는지 확인
+
+git branch 새로만들이름 : branch를 새로 생성
+
+> head가 testing 가르키고 있을때 a라는 파일을 생성하고 master branch로 가면 a라는 파일이 없다
+> 이는 checkout 명령 : commit 이후로 돌아가기 때문에
+
+
+merge : 
+
+
+git branch -m master production :  
+master 이름의 branch 가 production 이름으로 바뀐다.
+
+
+```
+파일내용 > 파일명 : 덮어쓰기
+
+파일내용 >> 파일명 : 추가
+```
+
+
+
+git checkout -b hotfix:  
+-b branch이름으로 이동까지
+
+
+git branch -d hotfix:  
+-d branch 를 삭제
+
+
+
+rebase / merge : 결과 같아  
+차이점은 rebase가 깨끗한 히스토리를 만든다.
+
+
+
+# ch7
+## 7.3
+
+### stash  
+
+잠시 브랜치를 변경해야하는데 아직 완료되지 않은 일을 커밋하는 것이 싫다. 따라서 커밋하지 않고 나중에 다시 돌아와 작업하고 싶을 때 stash를 사용하자. - 일종의 중간 저장 장소
+
+working directory에서 수정한 파일만 저장  
+= modified 이면서 tracked 상태인 파일과 staging area 내에 있는 파일을 보관해 두는 장소.  
+즉, 끝나지 않은 수정사항을 스택에 잠시 저장했다가 나중에 다시 적용 가능하다. 
+
+git stash apply  
+: 가장 최근의 stash 를 불러온다
+
+git stash apply stash@{2} 처럼 해당파일을 골라서 적용할 수 있다.
+
+
+git stash branch  
+: stash 를 적용한 브랜치를 만든다.
+
+
+###clean
+git clean 을 통해 tracked 되지 않는 파일을 지울 수 있다.  
+단, .gitignore이거나 무시되는 파일은 지우지 않는다. 이를 위해서 -x 라는 옵션이 필요하다    
+git clean -d -n  
+: 가상으로 삭제하고 어떤 파일이 지워지는지 알아봄
+ 
+ 
+ 
+## 7.5
+### git grep
+
+git grep -r 파일명  
+--count : 개수를 알려줌  
+-p : 매칭되는 라인이 있는 함수나 메서드를 찾는다.  
+--and : 여러 단어가 한라인에 동시에 나타나는 줄찾기  
+
+
+## 7.6
+### git commit --amend
+
+git commit --amned  
+: 마지막 커밋의 메세지를 수정한다.
+
+### 여러개의 commit 메세지를 수정하기
+#### git rebase -i HEAD~3
+
+: 최근 3개의 commit 메세지를 수정한다.
+push 한 commit 은 수정하지 말자.
+
+
+git log = 최신 파일이 가장 위에서부터 아래로 순차적으로 나온다.
+
+git rebase -i HEAD~3 을 하면 위에서부터 3개의 commit 메세지를 수정한다. 
+
+하나씩 수정하고 git rebase --continue 를 눌러 다음 commit 파일로 넘어간 뒤 git rebase --amend를 이용하여 수정하게 된다.
+
+
+## commit 합치기
+
+commit rebase -i HEAD~3  
+를 통해 최신의 3개 commit파일을 수정하는데 
+대화형 rebase 창에 설명이 되어 있다.
+
+그 중에 squash를 입력하게 되면 해당 커밋과 바로 이전 커밋을 합치고 commit 메세지도 merge 한다. 
+
+```
+따라서 첫줄의
+  
+pick
+  
+squash  
+
+squash
+```
+로 수정하면 3개의 commit 메세지를 merge할 수 있는 에디터가 실행된다.
+
+
+## commit 분리하기
+commit을 분리하기위해 분리하고자 하는 commit 메세지의 pick 을 edit 으로 바꿔준 후 
+
+git reset HEAD^을 통해 commit을 해제하자  
+그럼 unstaged 상태가 되고 파일을 다시 commit한 후 git rebase --continue 를 실행하자  
