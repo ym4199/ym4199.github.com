@@ -4,15 +4,15 @@
 
 AWS 의 계정을 생성하기 위해 해외결제 가능한 카드가 필요하고(VISA, MASTER) 계정을 생성하면 1년간 기본적인 기능을 제공한다.
 
-![free ubuntu](/Users/youngminkim/Projects/blog/image/free ubuntu.png)
+![free_ubuntu]({{site.url}}/image/free_ubuntu.png)
 
 지역 설정을 **seoul** 로 설정해야 반응이(?) 빠르다고 한다. 
 
-![location](/Users/youngminkim/Projects/blog/image/location.png)
+![location]({{site.url}}/image/location.png)
 
 aws service 창에서 ec2 검색 virtual servers in the cloud
 
-![ec2](/Users/youngminkim/Projects/blog/image/EC2.png)
+![ec2]({{site.url}}/image/EC2.png)
 
 ec2 의 create free version 선택 후 다른 옵션의 변경 없이 바로 만들자!  
 그렇다면 이제 중요한 key pair 을 설정하는 작업이 남았다.
