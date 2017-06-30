@@ -30,13 +30,13 @@ download 했다면 **파일명.pem** 으로 확인가능할 것이다.
 ```
 mv 파일명.pem ~/.ssh
 ```
-![ssh](/Users/youngminkim/Projects/blog/image/ssh.png)
+![ssh]({{site.url}}/image/ssh.png)
 
 해당 파일이 제대로 .ssh 안에 들어가있음을 확인 할 수 있다.
 
 이제 접근을 해보자. 접근하는 방법은 간단하다 EC2 의 dashboard 상에서 instance 내에서 하단의 public DNS 가 주소이다. 해당 주소로 접근을 하면 된다.
 
-![instance_id](/Users/youngminkim/Projects/blog/image/instance_id.png)
+![instance_id]({{site.url}}/image/instance_id.png)
 
 이때 방법은 aws ec2 ssh 로 googling 해도 알수가 있다. [google 결과 보기](http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html)  
 다음 명령을 통해 인스턴스에 연결한다.
@@ -225,4 +225,4 @@ Instance에서 Action 의 change 에서 새로 넣고자 하는 Group ID 를 넣
 ./manage.py runserver --settings=config.settings.debug 0:8000
 ```
 
-![check](/Users/youngminkim/Projects/blog/image/check.png)
+![check]({{site.url}}/image/check.png)
