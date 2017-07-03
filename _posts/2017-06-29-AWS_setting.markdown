@@ -4,15 +4,15 @@
 
 AWS 의 계정을 생성하기 위해 해외결제 가능한 카드가 필요하고(VISA, MASTER) 계정을 생성하면 1년간 기본적인 기능을 제공한다.
 
-![free_ubuntu]({{site.url}}/image/free_ubuntu.png)
+![free_ubuntu](https://{{site.url}}/image/free_ubuntu.png)
 
 지역 설정을 **seoul** 로 설정해야 반응이(?) 빠르다고 한다. 
 
-![location]({{site.url}}/image/location.png)
+![location](https://{{site.url}}/image/location.png)
 
 aws service 창에서 ec2 검색 virtual servers in the cloud
 
-![ec2]({{site.url}}/image/EC2.png)
+![ec2](https://{{site.url}}/image/EC2.png)
 
 ec2 의 create free version 선택 후 다른 옵션의 변경 없이 바로 만들자!  
 그렇다면 이제 중요한 key pair 을 설정하는 작업이 남았다.
@@ -30,13 +30,13 @@ download 했다면 **파일명.pem** 으로 확인가능할 것이다.
 ```
 mv 파일명.pem ~/.ssh
 ```
-![ssh]({{site.url}}/image/ssh.png)
+![ssh](https://{{site.url}}/image/ssh.png)
 
 해당 파일이 제대로 .ssh 안에 들어가있음을 확인 할 수 있다.
 
 이제 접근을 해보자. 접근하는 방법은 간단하다 EC2 의 dashboard 상에서 instance 내에서 하단의 public DNS 가 주소이다. 해당 주소로 접근을 하면 된다.
 
-![instance_id]({{site.url}}/image/instance_id.png)
+![instance_id](https://{{site.url}}/image/instance_id.png)
 
 이때 방법은 aws ec2 ssh 로 googling 해도 알수가 있다. [google 결과 보기](http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html)  
 다음 명령을 통해 인스턴스에 연결한다.
@@ -225,4 +225,4 @@ Instance에서 Action 의 change 에서 새로 넣고자 하는 Group ID 를 넣
 ./manage.py runserver --settings=config.settings.debug 0:8000
 ```
 
-![check]({{site.url}}/image/check.png)
+![check](https://{{site.url}}/image/check.png)
