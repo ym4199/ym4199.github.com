@@ -83,6 +83,83 @@ logger = file:/tmp/uwsgi.log
 
 최종적으로 성공하고 DNS 로 접속하면 NOTFOUND ERROR 를 접하게 된다.
 
+#### uwsgi 설정
+##### uwsgi 정상작동확인
+
+```
+uwsgi --http :8080 --home <virtualenv경로> --chdir <django 프로젝트 경로> -w <프로젝트명>.wsgi
+
+
+uwsgi --http :8080 --home ~/.pyenv/verisons/mysite-env --chdir /src/mysite/django_app -w mysite.wsgi
+```
+> 실행 후 <DNS>:8080 접속하여 요청을 잘 받는지 확인
+
+uwsgi 사이트 파일 생성
+
+```
+sudo mkdir /etc/uwsgi
+sudo mkdir /etc/uwsgi/sites
+sudo vi /etc/uwsgi/sites/mysite.ini
+
+[uwsgi]
+chdir = /srv/mysite/django_app # Django application folder
+module = mysite.wsgi:application # Django project name.wsgi
+home = /home/ubuntu/.pyenv/versions/mysite # VirtualEnv location
+
+uid = nginx
+gid = nginx
+
+socket = /tmp/mysite.sock
+chmod-socket = 666
+chown-socket = nginx:nginx
+
+enable-threads = true
+master = true
+pidfile = /tmp/mysite.pid
+```
+
+uwsgi site 파일로 정상 작동 확인
+
+```
+uwsgi --http :8000 -i /etc/uwsgi/sites/mysite.ini
+```
+
+sudo 로 root 권한을 실행
+
+```
+sudo /home/ubuntu/.pyenv/versions/mysite/bin/wsgi --http :8080 -i /etc/uwsgi/sites/mystie.ini
+```
+
+uwsgi 서비스 설정파일
+
+```
+sudo vi /etc/systemd/system/uwsgi.service
+
+[Unit]
+Description=uWSGI Emperor service
+After=syslog.target
+
+[Service]
+ExecPre=/bin/sh -c 'mkdir -p /run/uwsgi; chown nginx:nginx /run/uwsgi'
+ExecStart=/home/ubuntu/.pyenv/versions/mysite/bin/uwsgi --uid nginx --gid nginx --master --emperor /etc/uwsgi/sites
+
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
+```
+
+리부팅시 자동으로 실행되도록 설정
+
+```
+sudo systemctl enable uwsgi
+```
+
+
 ### Nginx 설정
 
 ```
