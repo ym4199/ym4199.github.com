@@ -144,6 +144,17 @@ class SnippetSerializer(serializers.Serializer):
 ```
 
 
+## Resquest & Response
+
+### Request
+rest_framework 의 Request 는 함수의 request 의 확장형태라 보자.  
+ 그전까지 request.POST, reqeust.GET 의 형태로 form 데이터에 제한되어서 사용했지만 Request.data 로 통합하여 아무 데이터나 다룰 수 있다.
+
+### Response
+Response 의 경우도 Response(data) 로 사용하면 알아서 클라이언트에 맞춰 변환한다.
+
+
+
 ## postman 
 
 조건에 맞춰 post, get, patch 를 설정하고 해당 url 로 접근. 이때, 필요 값들을 줘서 확인한다.
